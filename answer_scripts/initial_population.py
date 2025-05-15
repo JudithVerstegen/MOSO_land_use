@@ -51,17 +51,20 @@ def initialize_spatial(pop_size, default_directory):
         all_landusemaps.append(landuse_map_ini)
     return np.array(all_landusemaps)
 
-default_directory = "C:/Users/verst137/OneDrive - Universiteit Utrecht/Documents/scripts/MOSO_land_use/input_data"
 
-maps = initialize_spatial(3, default_directory)
+### testing
 
-f, axes = plt.subplots(1,3)
-cmap = ListedColormap(["#10773e","#b3cc33", "#0cf8c1", "#a4507d",
-                      "#877712","#be94e8","#eeefce","#1b5ee4",
-                      "#614040","#00000000"])
-for amap, ax in zip(maps, axes):
-    im = ax.imshow(amap,interpolation='none', cmap=cmap,vmin = 0.5, vmax = 10.5)
+# default_directory = "C:/Users/verst137/OneDrive - Universiteit Utrecht/Documents/scripts/MOSO_land_use/input_data"
+
+# maps = initialize_spatial(3, default_directory)
+
+# f, axes = plt.subplots(1,3)
+# cmap = ListedColormap(["#10773e","#b3cc33", "#0cf8c1", "#a4507d",
+#                       "#877712","#be94e8","#eeefce","#1b5ee4",
+#                       "#614040","#00000000"])
+# for amap, ax in zip(maps, axes):
+#     im = ax.imshow(amap,interpolation='none', cmap=cmap,vmin = 0.5, vmax = 10.5)
     
-plt.colorbar(im, orientation='horizontal')
-plt.show()
+# plt.colorbar(im, orientation='horizontal')
+# plt.show()
 
