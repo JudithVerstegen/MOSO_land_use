@@ -12,11 +12,10 @@ To do:
 """
 import numpy as np 
 import random
-
 from compute_genome import create_patch_ID_map
 from pymoo.core.crossover import Crossover 
-from pymoo.core.variable import Real, get
 from pymoo.core.population import Population
+from pymoo.core.variable import Real, get
 
 #-------------------------------------------------------------------------------------  
 # Spatial crossover
