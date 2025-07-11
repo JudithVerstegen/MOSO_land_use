@@ -34,8 +34,8 @@ class SpatialOnePointCrossover(Crossover):
         X = np.swapaxes(np.array([[parent.get("X") for parent in mating] for mating in pop]), 0, 1)
         if self.vtype is not None:
             X = X.astype(self.vtype)
-        shape_X = [X[0].shape[0], X[0].shape[1], X[0].shape[2]]
-        print(shape_X)
+        shape_landusemaps = [X[0].shape[0], X[0].shape[1], X[0].shape[2]]
+        print(shape_landusemaps)
 
         # the array where the offsprings will be stored to
         Xp = np.empty(shape=(n_offsprings, n_matings, n_var, n_var), dtype=X.dtype)
@@ -72,8 +72,8 @@ class SpatialOnePointCrossover(Crossover):
             Xp[:, k] = np.copy(X[s, k])
         
         # flatten the array to become a 2d-array
-        Xp = Xp.reshape(n_offsprings * shape_X[0], 
-                        shape_X[1], shape_X[2])
+        Xp = Xp.reshape(n_offsprings * shape_landusemaps[0], 
+                        shape_landusemaps[1], shape_landusemaps[2])
         # create a population object
         off = Population.new("X", Xp)
         

@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct  8 09:13:52 2020
-
-@author: root
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap

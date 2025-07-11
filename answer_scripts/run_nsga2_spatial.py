@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Created on Mon Sep 14 09:58:17 2020
 
@@ -9,18 +7,8 @@ Created on Mon Sep 14 09:58:17 2020
 # main script
 # --------------------------------------------------  
 
-Rules:
-- A raster cell must have exactly one class (original data between 1 and 13)
-- Water, urban area and no data (11, 12, 15) cannot be changed 
-- Cerrado, forest, secondary vegetation (1, 3, 13), can be turned into agriculture, but not the other way around
-- Combine different soy classes (5, 6, 7, 8, 9) into one class of soy (5)
-- Cotton, pasture, soy, sugarcane (2, 4, 5, 10) can be interchanged and replace forest
-
 """
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
-import matplotlib.patches as mpatches
 import pickle
 from initial_population import initialize_spatial
 
@@ -107,7 +95,7 @@ algorithm = NSGA2(
 
 from pymoo.termination import get_termination
 
-termination = get_termination("n_gen", 500)
+termination = get_termination("n_gen", 100)
 
 # --------------------------------------------------
 # optimize
@@ -126,6 +114,9 @@ res = minimize(Problem_def,
 # --------------------------------------------------
 # visualize pareto front
 # --------------------------------------------------
+import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
+import matplotlib.patches as mpatches
 
 #print(-res.F)
 
@@ -181,9 +172,9 @@ plt.legend(handles=legend_landuse,bbox_to_anchor=(1.05, 1), loc=2,
 plt.subplots_adjust(right = 0.6, hspace=0.2)
 f2.savefig(default_directory+"/outputs/landuse_max.png",dpi=150)
 
-# --------------------------------------------------
-# convergence
-# --------------------------------------------------
+    # --------------------------------------------------
+    # convergence
+    # --------------------------------------------------
 
 # the objective space values in each generation
 F = []
@@ -230,19 +221,19 @@ plt.savefig(default_directory+"/outputs/objectives_over_generations",dpi=150)
     # --------------------------------------------------
 
 f4, ax4 = plt.subplots(1)
-for i in (0, 49, 99, 199, 299, 399, 499):
+for i in (0, 49, 99):#, 199, 299, 399, 499):
     ax4.scatter(-F[i][:,0],-F[i][:,1])
 ax4.set_title("Objective Space")
 ax4.set_xlabel('Total yield [tonnes]')
 ax4.set_ylabel('Above ground biomass [tonnes]')
-ax4.legend(['gen 1','gen50','gen 100','gen 200','gen 300','gen 400','gen 500'])
+ax4.legend(['gen 1','gen50','gen 100'])#,'gen 200','gen 300','gen 400','gen 500'])
 f4.savefig(default_directory+"/outputs/objective_space_through_time.png",dpi=150)
 #plt.show()
 
 
-#     # --------------------------------------------------
-#     # hypervolume
-#     # --------------------------------------------------
+     # --------------------------------------------------
+     # hypervolume
+     # --------------------------------------------------
 
 import matplotlib.pyplot as plt
 #from pymoo.indicators.hv.exact import ExactHypervolume  

@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Oct 14 10:18:04 2020
-
-@author: jessicaruijsch
-"""
-
 from pymoo.util.misc import stack
 
 def func_pf(flatten=True, **kwargs):

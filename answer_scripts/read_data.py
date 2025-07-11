@@ -9,7 +9,7 @@ Created on Wed Oct 14 11:22:27 2020
 # read data
 # --------------------------------------------------  
 
-Rules:
+Rules original land use classes:
 - A raster cell must have exactly one class (original between 1 and 13)
 - Water, urban area and no data (11, 12, 15) cannot be changed 
 - Cerrado, forest, secondary vegetation (1, 3, 13), can be turned into agriculture, but not the other way around
