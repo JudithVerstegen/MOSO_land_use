@@ -12,7 +12,7 @@ def random_reset_mutation(genome_in, point_mutation_prob):
 
 # class that performs the mutation
 class SpatialNPointMutation(Mutation): 
-    def __init__(self, prob=None,point_mutation_probability=0.01):
+    def __init__(self, prob=None, point_mutation_probability=0.01):
         super().__init__()
         self.prob = prob
         self.point_mutation_probability = point_mutation_probability 
@@ -22,11 +22,12 @@ class SpatialNPointMutation(Mutation):
         rows = shape_landusemaps[0]
         cols = shape_landusemaps[1]
         offspring = []
+        
         # loop over individuals in population 
         for i in X:
         # perform mutation with certain probability 
             if np.random.uniform(0, 1) < self.prob:
-                # get genome
+                # get genome, where class 8 and 9 are static (not included)
                 patches, genome = create_patch_ID_map(i, 0, [8, 9], "True")
                 # perform mutation
                 mutated_genome = random_reset_mutation(genome, self.point_mutation_probability)

@@ -59,8 +59,9 @@ class MyProblem(Problem):
     def _evaluate(self, X, out, *args, **kwargs):
         
         
-        f1 = -calculate_tot_yield(X[:], sugarcane_pot_yield,soy_pot_yield,cotton_pot_yield,pasture_pot_yield,cell_area)
-        f2 = -calculate_above_ground_biomass(X[:],cell_area)
+        f1 = -calculate_tot_yield(X[:], sugarcane_pot_yield,soy_pot_yield, \
+                                  cotton_pot_yield, pasture_pot_yield, cell_area)
+        f2 = -calculate_above_ground_biomass(X[:], cell_area)
         # f3 = calculate_landuse_patches(x)
 
         # after doing the necessary calculations, 
@@ -95,7 +96,7 @@ algorithm = NSGA2(
 
 from pymoo.termination import get_termination
 
-termination = get_termination("n_gen", 100)
+termination = get_termination("n_gen", 500)
 
 # --------------------------------------------------
 # optimize
@@ -111,6 +112,8 @@ res = minimize(Problem_def,
                save_history=True,
                verbose=True)
 
+#print(-res.F)
+
 # --------------------------------------------------
 # visualize pareto front
 # --------------------------------------------------
@@ -118,14 +121,12 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 import matplotlib.patches as mpatches
 
-#print(-res.F)
-
 f1, ax1 = plt.subplots(1)
 ax1.scatter(-res.F[:,0],-res.F[:,1])
 ax1.set_title("Objective Space")
 ax1.set_xlabel('Total yield [tonnes]')
 ax1.set_ylabel('Above ground biomass [tonnes]')
-f1.savefig(default_directory+"/outputs/objective_space.png",dpi=150)
+f1.savefig(default_directory+"/outputs/objective_space.png", dpi=150)
 #plt.show()
 
 # --------------------------------------------------
@@ -176,17 +177,18 @@ f2.savefig(default_directory+"/outputs/landuse_max.png",dpi=150)
     # convergence
     # --------------------------------------------------
 
-# the objective space values in each generation
+# create an empty list to save objective values per generation
 F = []
-
-# iterate over the deepcopies of algorithms
-for algorithm in res.history:
-    # retrieve the optimum from the algorithm
-    opt = algorithm.opt
-    _F = opt.get("F")
-    F.append(_F)
+# iterate over the generations
+for generation in res.history:
+    # retrieve the optima for all objectives from the generation
+    opt = generation.opt
+    this_f = opt.get("F")
+    F.append(this_f)
 
 n_gen = np.array(range(1,len(F)+1))
+#print(n_gen)
+
 
     # --------------------------------------------------
     # maximum of objective values
@@ -220,27 +222,26 @@ plt.savefig(default_directory+"/outputs/objectives_over_generations",dpi=150)
     # pareto front over generations
     # --------------------------------------------------
 
-f4, ax4 = plt.subplots(1)
-for i in (0, 49, 99):#, 199, 299, 399, 499):
-    ax4.scatter(-F[i][:,0],-F[i][:,1])
-ax4.set_title("Objective Space")
+# add here the generations you want to see in the plot
+generations2plot = [1,50,100,200,300,400]
+
+# make the plot
+fig4, ax4 = plt.subplots(1)
+# i - 1, because generation 1 has index 0
+for i in generations2plot:
+    plt.scatter(-F[i-1][:,0],-F[i-1][:,1])
 ax4.set_xlabel('Total yield [tonnes]')
 ax4.set_ylabel('Above ground biomass [tonnes]')
-ax4.legend(['gen 1','gen50','gen 100'])#,'gen 200','gen 300','gen 400','gen 500'])
-f4.savefig(default_directory+"/outputs/objective_space_through_time.png",dpi=150)
-#plt.show()
+plt.legend(list(map(str, generations2plot)))
+plt.savefig(default_directory+"/outputs/pareto_front_over_generations.png")
 
 
      # --------------------------------------------------
      # hypervolume
      # --------------------------------------------------
 
-import matplotlib.pyplot as plt
-#from pymoo.indicators.hv.exact import ExactHypervolume  
 from pymoo.indicators.hv import HV
 
-# make an array of the number of generations
-n_gen = np.array(range(1,len(F)+1))
 # set reference point
 ref_point = np.array([0.0, 0.0])
 # create the performance indicator object with reference point
