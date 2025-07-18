@@ -7,7 +7,7 @@ This is a tutorial about spatial optimization. The goal of this tutorial is to s
 
 ## Installation
 
-Use [conda](https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html) and the package manager [pip](https://pip.pypa.io/en/stable/) to install MOSO_land_use.
+Use [conda](https://docs.conda.io/projects/conda/en/stable/user-guide/install/index.html) and the package manager [pip](https://pip.pypa.io/en/stable/) to install MOSO_land_use. Installation has been tested with pymoo version 0.6.1.5. Versions of the other libraries are specified in the environment file.
 
 ```bash
 # create a new environment with python and Numpy installed

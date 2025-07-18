@@ -35,7 +35,7 @@ class SpatialOnePointCrossover(Crossover):
         if self.vtype is not None:
             X = X.astype(self.vtype)
         shape_X = [X[0].shape[0], X[0].shape[1], X[0].shape[2]]
-        print(shape_X)
+        #print(shape_X)
 
         # the array where the offsprings will be stored to
         Xp = np.empty(shape=(n_offsprings, n_matings, n_var, n_var), dtype=X.dtype)

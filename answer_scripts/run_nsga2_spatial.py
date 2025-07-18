@@ -223,7 +223,7 @@ plt.savefig(default_directory+"/outputs/objectives_over_generations",dpi=150)
     # --------------------------------------------------
 
 # add here the generations you want to see in the plot
-generations2plot = [1,50,100,200,300,400]
+generations2plot = [1,50,100,200,300,400,500]
 
 # make the plot
 fig4, ax4 = plt.subplots(1)
